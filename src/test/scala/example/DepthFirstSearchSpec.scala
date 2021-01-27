@@ -31,6 +31,14 @@ class DepthFirstSearchSpec extends AnyFunSpec with Matchers {
       pathExists("a", "b", Seq("a" -> "c", "b" -> "c")) shouldBe false
     }
 
+    it("should be able to handle a loop in a graph") {
+      pathExists("a", "b", Seq("a" -> "b", "b" -> "a"))
+    }
+
+    it("should be able to handle a loop in a graph where no connections exist") {
+      pathExists("a", "b", Seq("c" -> "b", "b" -> "c"))
+    }
+
     it("should find a multi-step connection in a larger graph") {
       pathExists("A", "E", largerGraph) shouldBe true
     }
